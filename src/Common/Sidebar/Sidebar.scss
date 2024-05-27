@@ -1,0 +1,126 @@
+.sidebar_main {
+  position: absolute;
+  width: 215px;
+
+  .sidebar-toggler {
+    border-radius: 15px 0 0 15px;
+    cursor: pointer;
+    display: block;
+    float: right;
+    margin-top: 50px;
+    width: 23px;
+    height: 25px;
+    background: #e9ebec url(https://admin.jmd11.com/body-bg.a9de848f0a0bdfba1205.png);
+
+    svg {
+      margin-left: 7px;
+    }
+
+    @media screen and (max-width: "760px") {
+      margin-top: 20px;
+      border: 1px solid #1cabbd;
+      border-right: 0;
+    }
+  }
+
+  .navbar-inverse {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+
+    li {
+      display: block;
+      margin: 0 0 1px;
+      padding: 0;
+      border: 0;
+      background: url(https://admin.jmd11.com/side-bar-list-bg.2daa319ecc94ebeab7fe.png);
+      line-height: 30px;
+
+      a {
+        display: block;
+        position: relative;
+        margin: 0;
+        border: 0;
+        padding: 0 10px 0 0;
+        border-radius: 0 !important;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 400;
+        color: #fff;
+
+        .icon-box {
+          background: url(https://admin.jmd11.com/side-bar-list-bg.2daa319ecc94ebeab7fe.png) !important;
+          padding: 20px;
+          margin-right: 10px;
+          width: 60px;
+
+          svg {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: 980px) {
+      margin-top: 50px;
+      width: 215px;
+    }
+  }
+
+  .sub {
+    // display: none;
+    list-style: none;
+    clear: both;
+    margin: 0;
+    padding: 0;
+
+    li {
+      background: 0 0 !important;
+      padding: 0;
+      border-bottom: 1px solid #3393a2;
+
+      a {
+        display: block;
+        position: relative;
+        padding: 10px 10px 10px 60px;
+        color: #fff;
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.arrow {
+  float: right;
+  margin-top: 23px;
+  margin-right: 5px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid #f3f3f3;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
+.arrow.open {
+  float: right;
+  margin-top: 27px;
+  margin-right: 3px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid #f3f3f3;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+div#sidebar {
+  margin-top: 83px;
+}

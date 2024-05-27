@@ -1,0 +1,56 @@
+.page-title {
+    font-size: 28px;
+    display: block;
+    font-weight: 400 !important;
+    margin: 13px 0 8px;
+    font-family: MyriadPro-Light;
+    small {
+        font-size: 14px;
+        color: #868686;
+        font-weight: 400;
+        line-height: 1;
+    }
+}
+.breadcrumb {
+    background: 0 0;
+    font-size: 13px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    li {
+        height: 33px;
+        line-height: 33px;
+        background: url(https://admin.jmd11.com/bread-crumb-bg.19c8d6c5a4b84c24bc86.jpg) repeat-x;
+        float: none;
+        margin-bottom: 25px;
+        display: inline-block;
+        padding: 0 0 0 8px;
+        a {
+            color: #737373;
+            text-decoration: none;
+        }
+    }
+    svg{
+        margin-top: -26px;
+    }
+   
+}
+
+.breadcrumb>li>.divider, .breadcrumb>li>.divider-last {
+    display: inline-block;
+    padding: 0;
+    height: 33px;
+    line-height: 33px;
+}
+
+.divider {
+    width: 33px;
+    background: url(https://admin.jmd11.com/bread-crumb-divider.3958e40a8763b634472d.jpg) no-repeat;
+}
+
+.divider-last {
+    width: 19px;
+    background: url(https://admin.jmd11.com/bread-crumb-last.b03d59276f03e5659724.jpg) no-repeat;
+}
+.pull-right {
+    float: right !important;
+}

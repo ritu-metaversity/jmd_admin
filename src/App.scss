@@ -1,0 +1,47 @@
+.navigation {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  transition: 0.5s;
+  overflow: hidden;
+  z-index: 1039;
+}
+.nav_sort{
+  position: fixed;
+  width: 70px !important;
+  height: 100%;
+  transition: 0.5s;
+  overflow: hidden;
+  z-index: 1039;
+  @media screen and (max-width:800px) {
+    width: 0px !important;
+   
+  }
+}
+.navigation.active {
+  width: 80px;
+}
+.main {
+  position: absolute;
+    width: calc(100% - 210px);
+    left: 215px;
+    min-height: 100vh;
+    transition: 0.5s;
+    padding: 10px 14px;
+    box-shadow: 0 0 10px #757575;
+
+  @media screen and (max-width:800px) {
+    width: 100%;
+    left: 0px;
+    border:6px solid #00bcd4
+  }
+
+}
+
+.main_active{
+  left: 25px;
+  width: calc(100% - 25px);
+}
+
+
+
