@@ -5,13 +5,15 @@ import { useState } from 'react';
 import Login from './Pages/Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import MasterDetails from './Component/Breadcrumb/MasterDetails/MasterDetails';
+import UserDetails from './Pages/UserDetails/UserDetails';
+import CreateUser from './Pages/UserDetails/CreateUser/CreateUser';
+import UpdateLimit from './Pages/UserDetails/UpdateLimit/UpdateLimit';
 
 function App() {
 
   const [isActive, setIsActive] = useState(true);
-  const toggleNavigation = () => {
-    setIsActive(!isActive);
-  };
+  
 
   return (
     <>
@@ -22,15 +24,18 @@ function App() {
             <Route path="/login" element={<Login />} />
             {/* <Route path="/changePassword" element={<ChangePassword />} /> */}
             <Route
-              path="/"
+              path="/main"
               element={
                 <MainLayout
                   isActive={isActive}
                   setIsActive={setIsActive}
-                  toggleNavigation={toggleNavigation}
                 />
               }>
-              <Route path='/' element={<Dashboard/>}/>
+              <Route path='/main' element={<Dashboard/>}/>
+              <Route path='/main/masterdetails' element={<MasterDetails/>}/>
+              <Route path='/main/admindetails/:id' element={<UserDetails/>}/>
+              <Route path='/main/createuser/:id' element={<CreateUser/>}/>
+              <Route path='/main/updatelimit' element={<UpdateLimit/>}/>
             </Route>
           </Routes>
         </>

@@ -54,3 +54,7 @@
 .pull-right {
     float: right !important;
 }
+.text_color {
+        color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
+        font-weight: 800;
+}

@@ -5,13 +5,11 @@ import Sidebar from "../Sidebar/Sidebar";
 
 interface props {
   isActive:boolean,
-  toggleNavigation:any,
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MainLayout: FC<props> = ({
   isActive,
-  toggleNavigation,
   setIsActive
 }) => {
   return (

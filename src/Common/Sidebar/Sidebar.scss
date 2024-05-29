@@ -1,6 +1,10 @@
 .sidebar_main {
   position: absolute;
   width: 215px;
+  @media screen and (max-width: 760px) {
+    z-index: 11;
+    margin-left:-6px !important;
+  }
 
   .sidebar-toggler {
     border-radius: 15px 0 0 15px;
@@ -33,6 +37,11 @@
     margin: 0;
     padding: 0;
     border-radius: 0;
+    @media screen and (max-width: 760px) {
+      background-color: #1cabbd;
+      margin-top: -39px;
+      height: 100vh;
+    }
 
     li {
       display: block;

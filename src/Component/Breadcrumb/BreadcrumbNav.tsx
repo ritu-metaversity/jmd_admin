@@ -1,6 +1,7 @@
 import { FaHome } from "react-icons/fa";
 import "./BreadcrumbNav.scss";
 import { Breadcrumb } from "../../Pages/Dashboard/Dashboard";
+import { Link } from "react-router-dom";
 
 interface Props {
   heading: string;
@@ -25,7 +26,7 @@ const BreadcrumbNav = ({ heading, subHeading, breadData }: Props) => {
           {breadData?.map((item) => {
             return (
               <li>
-                <a>{item?.name}</a>
+                <Link className={item?.name === "Back"?"text_color":""} to={item?.link}>{item?.name}</Link>
                 <span className={item?.class}>&nbsp;</span>
               </li>
             );

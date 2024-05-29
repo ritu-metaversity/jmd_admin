@@ -11,8 +11,11 @@ interface props {
 const Sidebar:FC<props> = ({ isActive, setIsActive }) => {
   return (
     <>
-      <div>
+      <div className="hidden-phone">
         <SidebarItem isActive={isActive} setIsActive={setIsActive}/>
+      </div>
+      <div className="hidden-desk">
+        <SidebarItem isActive={!isActive} setIsActive={setIsActive}/>
       </div>
     </>
   );
