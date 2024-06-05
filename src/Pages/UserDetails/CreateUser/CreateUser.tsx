@@ -50,10 +50,6 @@ const CreateUser = () => {
               </span>
             </div>
             <div className="widget-body">
-              <div
-                id="Error"
-                className="alert alert-error hidden-phone"
-                style={{ visibility: "hidden" }}></div>
               <Form className="user_form">
                 <Row>
                   <Col xs={12} md={6}>

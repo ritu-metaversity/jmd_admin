@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
-import { FaUser } from "react-icons/fa";
 import { Payload } from "./MasterDetails";
 
 interface CardItemProps {
@@ -14,12 +13,12 @@ const CardItem: React.FC<CardItemProps> = ({ data }) => {
       {data.map((res, id) => (
         <Col key={id} xs={6} md={2}>
           <div className="circle-wrap">
-            <Link to="/main/masterdetails">
+            <Link to={res?.link}>
               <div
                 className="stats-circle turquoise-color"
                 style={{ background: res?.color }}
               >
-                <FaUser />
+                {res?.icon}
               </div>
               <strong>
                 <p style={{ color: res?.color }}>{res?.title}</p>

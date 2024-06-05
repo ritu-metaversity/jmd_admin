@@ -14,6 +14,7 @@ export interface dashData {
   title: string;
   icon: any;
   color: string;
+  link:string
 }
 
 const breadData: Breadcrumb[] = [
@@ -29,16 +30,19 @@ const DashboardData: dashData[] = [
     title: "Sport's Betting",
     icon: <FaTags />,
     color: "#e17f90",
+    link:"/main/sportsdetails"
   },
   {
     title: "Ledger",
     icon: <FaEye />,
     color: "#c8abdb",
+    link:"/main/ledger-dashboard",
   },
   {
     title: "Setting",
     icon: <RiBarChartBoxLine />,
     color: "#93c4e4",
+    link:"/main",
   },
 ];
 
@@ -68,7 +72,7 @@ const Dashboard = () => {
         {DashboardData.map((item) => (
           <Col xs={6} md={2} >
             <div className="circle-wrap">
-              <Link to="/main/masterdetails">
+              <Link to={item.link}>
                 <div
                   className="stats-circle turquoise-color"
                   style={{ background: item?.color }}>

@@ -11,16 +11,10 @@ interface Props {
 }
 const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
 
-  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({
-    masterDetails: false,
-    sportsBetting: false,
-    ledger: false,
-    cashTransaction: false,
-    settings: false,
-  });
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   const toggleMenu = (menu: string) => {
-    setOpenMenus((prev) => ({ ...prev, [menu]: !prev[menu] }));
+    setOpenMenu((prev) => (prev === menu ? null : menu));
   };
 
 
@@ -46,9 +40,9 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                 <FaBook />
                 </span>
-                Master Details <span className={`arrow ${openMenus.masterDetails ? "open" : ""}`} />
+                Master Details <span className={`arrow ${openMenu === "masterDetails" ? "open" : ""}`} />
               </Link>
-              <ul className={`sub ${openMenus.masterDetails ? "open" : ""}`}>
+              <ul className={`sub ${openMenu === "masterDetails" ? "open" : ""}`}>
                 <li className="ng-star-inserted">
                   <Link to="/main/admindetails/4">Admin</Link>
                 </li>
@@ -76,9 +70,9 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                   <GrTasks />
                 </span>
-                Sport's Betting <span className={`arrow ${openMenus.sportsBetting ? "open" : ""}`} />
+                Sport's Betting <span className={`arrow ${openMenu === "sportsBetting" ? "open" : ""}`} />
               </Link>
-              <ul className={`sub ${openMenus.sportsBetting ? "open" : ""}`}>
+              <ul className={`sub ${openMenu === "sportsBetting" ? "open" : ""}`}>
                 <li>
                   <Link to="/main/currentsportsdetails">
                     Current Sport's Details
@@ -94,9 +88,9 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                   <GrTasks />
                 </span>{" "}
-                Ledger <span className={`arrow ${openMenus.ledger ? "open" : ""}`} />
+                Ledger <span className={`arrow ${openMenu === "ledger" ? "open" : ""}`} />
               </Link>
-              <ul className={`sub ${openMenus.ledger ? "open" : ""}`}>
+              <ul className={`sub ${openMenu === "ledger" ? "open" : ""}`}>
                 <li>
                   <Link to="/main/myledger">My Ledger</Link>
                 </li>
@@ -133,9 +127,9 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                   <FaCogs />
                 </span>
-                Cash Transaction <span className={`arrow ${openMenus.cashTransaction ? "open" : ""}`}  />
+                Cash Transaction <span className={`arrow ${openMenu === "cashTransaction" ? "open" : ""}`}  />
               </Link>
-              <ul className={`sub ${openMenus.cashTransaction ? "open" : ""}`}>
+              <ul className={`sub ${openMenu === "cashTransaction" ? "open" : ""}`}>
                 <li className="ng-star-inserted">
                   <Link to="/main/debitclient/7">Debit/Credit Entry (C)</Link>
                 </li>
@@ -154,11 +148,11 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                   <FaCogs />
                 </span>
-                Settings <span className={`arrow ${openMenus.settings ? "open" : ""}`} />
+                Settings <span className={`arrow ${openMenu === "settings" ? "open" : ""}`} />
               </Link>
-              <ul className={`sub ${openMenus.settings ? "open" : ""}`}>
+              <ul className={`sub ${openMenu === "settings" ? "open" : ""}`}>
                 <li>
-                  <Link to="/main/changepassword">Change Password</Link>
+                  <Link to="/main/changePassword">Change Password</Link>
                 </li>
               </ul>
             </li>

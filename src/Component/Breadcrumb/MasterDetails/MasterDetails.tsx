@@ -8,6 +8,7 @@ export interface Payload {
   color: string;
   userType: number;
   id: number;
+  link:string
 }
 
 const breadData: Breadcrumb[] = [
@@ -31,6 +32,7 @@ const MasterDetails = () => {
       color: "#a8c77b",
       userType: 6,
       id: 0,
+      link:"/main/admindetails/5"
     },
     {
       title: "Admin",
@@ -38,6 +40,7 @@ const MasterDetails = () => {
       color: "#b9baba",
       userType: 4,
       id: 1,
+      link:"/main/admindetails/5"
     },
     {
       title: "Sub Admin",
@@ -45,6 +48,7 @@ const MasterDetails = () => {
       color: "#93c4e4",
       userType: 5,
       id: 2,
+      link:"/main/admindetails/5"
     },
     {
       title: "Super Master",
@@ -52,6 +56,7 @@ const MasterDetails = () => {
       color: "#e17f90",
       userType: 0,
       id: 3,
+      link:"/main/admindetails/5"
     },
     {
       title: "Master Details",
@@ -59,6 +64,7 @@ const MasterDetails = () => {
       color: "#4cc5cd",
       userType: 1,
       id: 4,
+      link:"/main/admindetails/5"
     },
     {
       title: "Agent Details",
@@ -66,6 +72,7 @@ const MasterDetails = () => {
       color: "#c8abdb",
       userType: 2,
       id: 5,
+      link:"/main/admindetails/5"
     },
     {
       title: "Client Details",
@@ -73,6 +80,7 @@ const MasterDetails = () => {
       color: "#c8abdb",
       userType: 3,
       id: 6,
+      link:"/main/admindetails/5"
     },
   ];
   const uType = 6;

@@ -1,0 +1,72 @@
+.odds_data{
+    border-top: 1px solid #eee;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    width: 100%;
+    border: 1px solid #ddd;
+    background-color: transparent;
+    td, th {
+        font-size: 16px;
+        border-left: 1px solid #eee;
+        padding: 10px;
+        border: 1px solid #eee;
+        vertical-align: top !important;
+        
+    }
+    tr{
+        &:nth-child(odd){
+            background-color: #f9f9f9;
+        }
+    }
+    .ButtonK, .ButtonK_hover {
+        background-repeat: no-repeat;
+        background-position: 3px 3px;
+        height: 25px;
+        font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+        font-weight: 700;
+    }
+    .ButtonK {
+        color: #00f;
+        font-size: 16px;
+    }
+    .ButtonL {
+        color: red;
+        font-size: 16px;
+        font-weight: 700;
+    }
+   
+}
+
+.widget_body{
+ padding: 15px;  
+ background: #fff;
+ clear: both;
+ margin-bottom: 20px;
+ margin-top: 0;
+ box-shadow: 0 0 5px #ddd;
+}
+
+.green-text {
+    color: green !important;
+    font-weight: 700;
+}
+.red-text {
+    color: red !important;
+}
+.blue-text {
+    color: #00f !important;
+}
+
+.button_hover{
+    &:hover{
+        font-size: 18px !important;
+        color: #000;
+    }
+}
+
+.ch_bg{
+    th{
+        background-color: #605d5d;
+    color: #fff !important;
+    }
+}

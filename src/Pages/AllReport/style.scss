@@ -1,0 +1,35 @@
+.report_modals {
+    .modal-dialog {
+        width: 98%;
+        max-width: unset;
+        margin-right: auto;
+        margin-left: auto;
+        .modal-content{
+            border-radius: unset;
+            .modal-header {
+                padding: 15px;
+                background-color: #48a9be !important;
+                color: #fff;
+                border: none;
+                border-radius: unset;
+                .modal-title {
+                    font-size: 16px;
+                    font-weight: 800;
+                }
+              }
+              button.btn-close {
+                font-size: 13px;
+                font-weight: 700;
+                line-height: 1;
+                color: #000;
+                text-shadow: 0 1px 0 #fff;
+            }
+            .modal-body{
+                td, th{
+                    color: #777777;
+                }
+            }
+        }
+    }
+  
+}

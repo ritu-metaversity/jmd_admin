@@ -1,0 +1,73 @@
+.mobile-hidden {
+  display: table-header-group;
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
+}
+.mobile-hidden1 {
+  display: contents;
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
+  .form-control {
+    display: inline-block;
+    height: auto;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border 0.2s linear, box-shadow 0.2s linear;
+  }
+}
+
+.desk_hidden {
+  display: none;
+  button {
+    display: block !important;
+    margin: auto;
+  }
+  @media screen and (max-width: 760px) {
+    display: table-header-group;
+  }
+}
+
+.TableHeading1 {
+  .form-control {
+    display: inline-block;
+    height: auto;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border 0.2s linear, box-shadow 0.2s linear;
+  }
+}
+
+
+.save-btn {svg {
+  font-size: 25px;
+  color: #32c2cd;
+  cursor: pointer;
+}}
+
+.ng-star-inserted-total{
+  td{
+    background-color: #c5c5c5 !important;
+  }
+}
+
+.green-text1{
+  color: #00a100 !important;
+}

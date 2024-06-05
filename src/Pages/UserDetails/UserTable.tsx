@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Optionbutton from "./Optionbutton";
 import { FaChevronDown, FaGlobeAmericas, FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { Dropdown } from "react-bootstrap";
 
 const UserTable = () => {
   return (
@@ -32,34 +33,36 @@ const UserTable = () => {
                       Update Limit
                     </button>
                   </Link>
-                  <div className="btn-group">
-                    <button
-                      data-toggle="dropdown"
-                      className="btn btn-danger dropdown-toggle">
-                      Report Details <span className="caret" />
-                    </button>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <Link to="/main/limitUpdateDetails/5">
-                          Limit Update Details
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/main/shareUpdateDetails/5">
-                          Share Update Details
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/main/commUpdateDetails/5">
-                          Comm Update Details
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/main/statusUpdateDetails/5">
-                          Status Update Details
-                        </Link>
-                      </li>
-                    </ul>
+
+                  <div className="btn-group report_droup_down">
+                    <Dropdown>
+                      <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                        Report Details
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item >
+                          <Link to="/main/limitUpdateDetails/5" style={{ padding: "0px" }}>
+                            Limit Update Details
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item >
+                          <Link to="/main/shareUpdateDetails/5" style={{ padding: "0px" }}>
+                            Share Update Details
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item style={{ padding: "0px" }} >
+                          <Link to="/main/commUpdateDetails/5">
+                            Comm Update Details
+                          </Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">
+                          <Link to="/main/statusUpdateDetails/5" style={{ padding: "0px" }}>
+                            Status Update Details
+                          </Link>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                 </div>
                 <div className="space15" />
@@ -69,7 +72,7 @@ const UserTable = () => {
                 id="BetPlayer"
                 method="post"
                 autoComplete="off"
-                className="ng-untouched ng-pristine ng-valid" >
+                className="ng-untouched ng-pristine ng-valid">
                 <table
                   width="100%"
                   id="sample_1"
@@ -145,7 +148,7 @@ const UserTable = () => {
                         </Link>
                         <div className="show-hover">
                           <span className="ng-star-inserted"></span>
-                          {/**/}
+
                         </div>
                       </td>
                       <td align="left" className="relat">
@@ -156,7 +159,7 @@ const UserTable = () => {
                         </Link>
                         <div className="show-hover">
                           <span className="ng-star-inserted"></span>
-                          {/**/}
+
                         </div>
                       </td>
                       <td align="left">9876543211</td>
@@ -185,60 +188,178 @@ const UserTable = () => {
                       </td>
                       <td align="left">Active</td>
                     </tr>
-                    {/**/}
+                    <tr className="ng-star-inserted">
+                      <td align="left">
+                        <Optionbutton />
+                      </td>
+                      <td height={20} align="left">
+                        1
+                      </td>
+                      <td align="left">SA16499</td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          DemoSuperAgent
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          Raj(MA1568)
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left">9876543211</td>
+                      <td align="left">5/27/24, 10:49 AM</td>
+                      <td align="left">
+                        <span style={{ color: "green" }}>0</span>
+                      </td>
+                      <td align="left">10</td>
+                      <td align="right" className="FontText">
+                        Bet By Bet
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        2
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        3
+                      </td>
+                      <td align="right" style={{ textAlign: "right" }}>
+                        1000
+                      </td>
+                      <td align="left">Active</td>
+                    </tr>
+                    <tr className="ng-star-inserted">
+                      <td align="left">
+                        <Optionbutton />
+                      </td>
+                      <td height={20} align="left">
+                        1
+                      </td>
+                      <td align="left">SA16499</td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          DemoSuperAgent
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          Raj(MA1568)
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left">9876543211</td>
+                      <td align="left">5/27/24, 10:49 AM</td>
+                      <td align="left">
+                        <span style={{ color: "green" }}>0</span>
+                      </td>
+                      <td align="left">10</td>
+                      <td align="right" className="FontText">
+                        Bet By Bet
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        2
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        3
+                      </td>
+                      <td align="right" style={{ textAlign: "right" }}>
+                        1000
+                      </td>
+                      <td align="left">Active</td>
+                    </tr>
+                    <tr className="ng-star-inserted">
+                      <td align="left">
+                        <Optionbutton />
+                      </td>
+                      <td height={20} align="left">
+                        1
+                      </td>
+                      <td align="left">SA16499</td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          DemoSuperAgent
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left" className="relat">
+                        <Link
+                          to="javascript:void(0)"
+                          className="user_directory">
+                          Raj(MA1568)
+                        </Link>
+                        <div className="show-hover">
+                          <span className="ng-star-inserted"></span>
+
+                        </div>
+                      </td>
+                      <td align="left">9876543211</td>
+                      <td align="left">5/27/24, 10:49 AM</td>
+                      <td align="left">
+                        <span style={{ color: "green" }}>0</span>
+                      </td>
+                      <td align="left">10</td>
+                      <td align="right" className="FontText">
+                        Bet By Bet
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        2
+                      </td>
+                      <td
+                        align="right"
+                        className="FontText"
+                        style={{ textAlign: "right" }}>
+                        3
+                      </td>
+                      <td align="right" style={{ textAlign: "right" }}>
+                        1000
+                      </td>
+                      <td align="left">Active</td>
+                    </tr>
+
                   </tbody>
-                  {/**/}
+
                 </table>
-                {/**/}
-                <input name="ID" type="hidden" id="ID" readOnly={false} />
-                <input
-                  name="Status"
-                  type="hidden"
-                  id="Status"
-                  readOnly={false}
-                />
-                <input
-                  name="StatusMultiple"
-                  type="hidden"
-                  id="StatusMultiple"
-                  readOnly={false}
-                />
-                <input
-                  name="ModifyStatusChk"
-                  type="hidden"
-                  id="ModifyStatusChk"
-                  readOnly={false}
-                />
-                <input
-                  name="ModifyStatusMultipleChk"
-                  type="hidden"
-                  id="ModifyStatusMultipleChk"
-                  readOnly={false}
-                />
-                <input
-                  name="TotalRecords"
-                  type="hidden"
-                  id="TotalRecords"
-                  defaultValue=""
-                />
-                <input
-                  name="AutoNo"
-                  type="hidden"
-                  id="AutoNo"
-                  defaultValue=""
-                />
-                <input
-                  name="GaddiChk"
-                  type="hidden"
-                  id="GaddiChk"
-                  defaultValue=""
-                />
-                <input
-                  name="LoginChk"
-                  type="hidden"
-                  id="LoginChk"
-                  defaultValue=""
-                />
               </form>
             </div>
           </div>
