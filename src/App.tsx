@@ -28,6 +28,7 @@ import CommissionLenaDena from './Pages/LedgerDetails/CommissionLenaDena/Commiss
 import TotalProfit from './Pages/LedgerDetails/TotalProfit/TotalProfit';
 import AllReport from './Pages/AllReport/AllReport';
 import CashTransaction from './Pages/CashTransaction/CashTransaction';
+import MatchSessionPlusMinus from './Pages/SportDetails/MatchSessionPlusMinus/MatchSessionPlusMinus';
 
 
 function App() {
@@ -44,14 +45,14 @@ function App() {
               <Route path="/login" element={<Login />} />
               {/* <Route path="/changePassword" element={<ChangePassword />} /> */}
               <Route
-                path="/main"
+                path="/"
                 element={
                   <MainLayout
                     isActive={isActive}
                     setIsActive={setIsActive}
                   />
                 }>
-                <Route path='/main' element={<Dashboard />} />
+                <Route path='/' element={<Dashboard />} />
                 <Route path='/main/masterdetails' element={<MasterDetails />} />
                 <Route path='/main/admindetails/:id' element={<UserDetails />} />
                 <Route path='/main/createuser/:id' element={<CreateUser />} />
@@ -75,6 +76,7 @@ function App() {
                 <Route path='/main/totalProfit' element={<TotalProfit />} />
                 <Route path='/main/allagentreport' element={<AllReport />} />
                 <Route path='/main/debitclient/:id' element={<CashTransaction />} />
+                <Route path='/main/session-plus-minus/:id' element={<MatchSessionPlusMinus />} />
               </Route>
             </Routes>
           </>
