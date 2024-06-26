@@ -52,7 +52,7 @@ function App() {
                     setIsActive={setIsActive}
                   />
                 }>
-                <Route path='/' element={<Dashboard />} />
+                <Route path='/main' element={<Dashboard />} />
                 <Route path='/main/masterdetails' element={<MasterDetails />} />
                 <Route path='/main/admindetails/:id' element={<UserDetails />} />
                 <Route path='/main/createuser/:id' element={<CreateUser />} />

@@ -1,10 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Optionbutton from "./Optionbutton";
 import { FaChevronDown, FaGlobeAmericas, FaPlus } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { Dropdown } from "react-bootstrap";
+import { SidebarObj } from "../../Common/Sidebar/SidebarItem";
+import { useActiveDeactiveUserMutation, useGetuserlistMutation } from "../../app/apis/mainApi/mainApislice";
+import { useEffect, useState } from "react";
+import snackbarUtil from "../../utils/snackbar";
 
-const UserTable = () => {
+
+
+interface userListDataProps {
+  sidebarobj: SidebarObj
+}
+
+const UserTable: React.FC<userListDataProps> = ({ sidebarobj }) => {
+  const { id } = useParams();
+  const [userListPayload, setUserListPayload] = useState({
+    userType: 2,
+    noOfRecords: 100,
+    index: 0
+  });
+  const [userAcitveDeactiveTrigger, { data: userAcitveDeactiveData }] = useActiveDeactiveUserMutation();
+
+  const handlerActiveDeactive = (userId: string, userStatus: boolean) => {
+    userAcitveDeactiveTrigger({
+      userId: userId,
+      activate: userStatus === true ? false : true
+    })
+  }
+
+  const [userListTrigger, { data: userListData }] = useGetuserlistMutation();
+
+  useEffect(() => {
+    if (userAcitveDeactiveData) {
+      if (!userAcitveDeactiveData?.status) {
+        userListTrigger({
+          ...userListPayload
+        })
+        snackbarUtil.success(userAcitveDeactiveData?.message);
+      }
+    }
+  }, [userAcitveDeactiveData])
+
+  useEffect(() => {
+    setUserListPayload((prevstate) => ({
+      ...prevstate,
+      userType: Number(id)
+    }))
+  }, [id])
+
+  useEffect(() => {
+    userListTrigger({
+      ...userListPayload
+    })
+  }, [userListPayload])
+
+
+
   return (
     <>
       <div className="ng-sport-inserted">
@@ -13,7 +66,7 @@ const UserTable = () => {
             <div className="widget-title">
               <h4>
                 <FaGlobeAmericas />
-                Super Agent Details
+                {sidebarobj[Number(id)]}
               </h4>
               <span className="tools">
                 <FaChevronDown />
@@ -23,7 +76,7 @@ const UserTable = () => {
             <div className="widget-body form">
               <div className="portlet-body ng-star-inserted">
                 <div className="clearfix">
-                  <Link to="/main/createuser/5">
+                  <Link to={`/main/createuser/${id}`}>
                     <button type="button" className="btn btn-warning">
                       <FaPlus /> Create
                     </button>
@@ -132,230 +185,64 @@ const UserTable = () => {
                     </tr>
                   </thead>
                   <tbody className="ng-star-inserted">
-                    <tr className="ng-star-inserted">
-                      <td align="left">
-                        <Optionbutton />
-                      </td>
-                      <td height={20} align="left">
-                        1
-                      </td>
-                      <td align="left">SA16499</td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          DemoSuperAgent
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
+                    {userListData?.data?.map((userData, index) => (
+                      <tr className="ng-star-inserted" key={index}>
+                        <td align="left">
+                          <Optionbutton userStatus={userData?.userStatus} onClick={() => handlerActiveDeactive(userData?.userId, userData?.userStatus)} />
+                        </td>
+                        <td height={20} align="left">
+                          {index + 1}
+                        </td>
+                        <td align="left">{userData?.userId}</td>
+                        <td align="left" className="relat">
+                          <Link
+                            to="javascript:void(0)"
+                            className="user_directory">
+                            {userData?.userName}
+                          </Link>
+                          <div className="show-hover">
+                            <span className="ng-star-inserted"></span>
 
-                        </div>
-                      </td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          Raj(MA1568)
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
+                          </div>
+                        </td>
+                        <td align="left" className="relat">
+                          <Link
+                            to="javascript:void(0)"
+                            className="user_directory">
+                            {userData?.parentId}
+                          </Link>
+                          <div className="show-hover">
+                            <span className="ng-star-inserted"></span>
+                          </div>
+                        </td>
+                        <td align="left">{userData?.mobile}</td>
+                        <td align="left">N/A</td>
+                        <td align="left">
+                          <span style={{ color: "green" }}>{userData?.balance}</span>
+                        </td>
+                        <td align="left">{userData?.share}</td>
+                        <td align="right" className="FontText">
+                          N/A
+                        </td>
+                        <td
+                          align="right"
+                          className="FontText"
+                          style={{ textAlign: "right" }}>
+                          {userData?.matchCommission.toFixed(1)}
+                        </td>
+                        <td
+                          align="right"
+                          className="FontText"
+                          style={{ textAlign: "right" }}>
+                          {userData?.sessionCommission.toFixed(1)}
+                        </td>
+                        <td align="right" style={{ textAlign: "right" }}>
+                          N/A
+                        </td>
+                        <td align="left">{userData?.userStatus ? 'ACTIVE' : 'InActive'}</td>
+                      </tr>
+                    ))}
 
-                        </div>
-                      </td>
-                      <td align="left">9876543211</td>
-                      <td align="left">5/27/24, 10:49 AM</td>
-                      <td align="left">
-                        <span style={{ color: "green" }}>0</span>
-                      </td>
-                      <td align="left">10</td>
-                      <td align="right" className="FontText">
-                        Bet By Bet
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        2
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        3
-                      </td>
-                      <td align="right" style={{ textAlign: "right" }}>
-                        1000
-                      </td>
-                      <td align="left">Active</td>
-                    </tr>
-                    <tr className="ng-star-inserted">
-                      <td align="left">
-                        <Optionbutton />
-                      </td>
-                      <td height={20} align="left">
-                        1
-                      </td>
-                      <td align="left">SA16499</td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          DemoSuperAgent
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          Raj(MA1568)
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left">9876543211</td>
-                      <td align="left">5/27/24, 10:49 AM</td>
-                      <td align="left">
-                        <span style={{ color: "green" }}>0</span>
-                      </td>
-                      <td align="left">10</td>
-                      <td align="right" className="FontText">
-                        Bet By Bet
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        2
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        3
-                      </td>
-                      <td align="right" style={{ textAlign: "right" }}>
-                        1000
-                      </td>
-                      <td align="left">Active</td>
-                    </tr>
-                    <tr className="ng-star-inserted">
-                      <td align="left">
-                        <Optionbutton />
-                      </td>
-                      <td height={20} align="left">
-                        1
-                      </td>
-                      <td align="left">SA16499</td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          DemoSuperAgent
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          Raj(MA1568)
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left">9876543211</td>
-                      <td align="left">5/27/24, 10:49 AM</td>
-                      <td align="left">
-                        <span style={{ color: "green" }}>0</span>
-                      </td>
-                      <td align="left">10</td>
-                      <td align="right" className="FontText">
-                        Bet By Bet
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        2
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        3
-                      </td>
-                      <td align="right" style={{ textAlign: "right" }}>
-                        1000
-                      </td>
-                      <td align="left">Active</td>
-                    </tr>
-                    <tr className="ng-star-inserted">
-                      <td align="left">
-                        <Optionbutton />
-                      </td>
-                      <td height={20} align="left">
-                        1
-                      </td>
-                      <td align="left">SA16499</td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          DemoSuperAgent
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left" className="relat">
-                        <Link
-                          to="javascript:void(0)"
-                          className="user_directory">
-                          Raj(MA1568)
-                        </Link>
-                        <div className="show-hover">
-                          <span className="ng-star-inserted"></span>
-
-                        </div>
-                      </td>
-                      <td align="left">9876543211</td>
-                      <td align="left">5/27/24, 10:49 AM</td>
-                      <td align="left">
-                        <span style={{ color: "green" }}>0</span>
-                      </td>
-                      <td align="left">10</td>
-                      <td align="right" className="FontText">
-                        Bet By Bet
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        2
-                      </td>
-                      <td
-                        align="right"
-                        className="FontText"
-                        style={{ textAlign: "right" }}>
-                        3
-                      </td>
-                      <td align="right" style={{ textAlign: "right" }}>
-                        1000
-                      </td>
-                      <td align="left">Active</td>
-                    </tr>
 
                   </tbody>
 

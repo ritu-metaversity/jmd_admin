@@ -4,6 +4,9 @@ import BreadcrumbNav from "../../../Component/Breadcrumb/BreadcrumbNav";
 import { Breadcrumb } from "../../Dashboard/Dashboard";
 import { Button, Col, Row, Form } from "react-bootstrap";
 import "./createuser.scss";
+import { useCreateUserMutation, useUserCreationDetailMutation, useUsernameIdSearchMutation } from "../../../app/apis/mainApi/mainApislice";
+import { FormEvent, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const breadData: Breadcrumb[] = [
   {
@@ -29,6 +32,87 @@ const breadData: Breadcrumb[] = [
 ];
 
 const CreateUser = () => {
+  const { id } = useParams();
+
+  const [createUserTrigger, { data: createUserData }] = useCreateUserMutation();
+  const [usernameIdSearchTrigger, { data: usernameIdSearchData }] = useUsernameIdSearchMutation();
+  const [userCreationDetailTrigger, { data: userCreationData }] = useUserCreationDetailMutation();
+
+  // const [createuserPayload] = useState({
+  //   mobileAppCharge: userCreationData?.data?.mobileAppCharge,
+  //   matchCommission: userCreationData?.data?.myMatchCommission,
+  //   sessionCommission: userCreationData?.data?.mySessionCommision,
+  //   commissionType: userCreationData?.data?.commissionType,
+  //   casinoCommission: userCreationData?.data?.myCasinoCommission
+  // })
+
+  console.log(createUserData, 'createUserData...');
+
+
+  useEffect(() => {
+    usernameIdSearchTrigger({
+      userType: (Number(id) + 1)
+    })
+  }, [id]);
+
+
+  const [userList, setUserList] = useState({
+    username: '',
+    reference: '',
+    password: '',
+    contact: '',
+    mobileAppCharge: Number(userCreationData?.data.mobileAppCharge) || 0,
+    partnership: '',
+    casinoPartnership: 0,
+    internationalCasinoPartnership: 0,
+    commissionType: 1,
+    matchCommission: 0,
+    sessionCommission: 0,
+    casinoCommission: 0,
+    parentIdForUserCreation: ''
+  });
+
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    userCreationDetailTrigger({
+      userId: e.target.value
+    })
+
+    setUserList((prevstate) => ({
+      ...prevstate,
+      parentIdForUserCreation: e.target.value
+    }))
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setUserList((PrevState) => ({
+      ...PrevState,
+      [name]: value
+    }))
+
+  };
+
+
+  const handleSubmit = async (e: FormEvent<HTMLButtonElement>): Promise<void> => {
+    e.preventDefault();
+    try {
+      await createUserTrigger({ ...userList }).unwrap();
+    } catch (error) {
+      console.log(`failed to get userlist ${error}`)
+    }
+  }
+
+  const handleCommisionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setUserList((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+
   return (
     <>
       <BreadcrumbNav
@@ -50,7 +134,7 @@ const CreateUser = () => {
               </span>
             </div>
             <div className="widget-body">
-              <Form className="user_form">
+              <Form className="user_form" >
                 <Row>
                   <Col xs={12} md={6}>
                     <Row>
@@ -59,9 +143,11 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Select aria-label="Default select example">
+                          <Form.Select aria-label="Default select example" onChange={handleSelectChange}>
                             <option>Select Super Agent</option>
-                            <option value="1">Raj (MA1568)</option>
+                            {usernameIdSearchData?.data?.map((usernameAnduserid, index) => (
+                              <option key={usernameAnduserid?.userId + index} value={usernameAnduserid?.userId}>{`${usernameAnduserid.userName} (${usernameAnduserid?.userId})`}</option>
+                            ))}
                           </Form.Select>
                         </Form.Group>
                       </Col>
@@ -76,7 +162,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text"/>
+                          <Form.Control type="text" disabled />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -90,7 +176,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text"  />
+                          <Form.Control type="text" name="username" value={userList?.username} onChange={handleChange} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -119,7 +205,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text"  />
+                          <Form.Control type="text" name="reference" onChange={handleChange} value={userList?.reference} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -161,7 +247,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="number" />
+                          <Form.Control type="number" name="contact" value={userList?.contact} onChange={handleChange} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -175,7 +261,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text" />
+                          <Form.Control type="text" value={userList?.password} name="password" onChange={handleChange} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -196,7 +282,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text" />
+                          <Form.Control type="text" value={userList?.partnership} name="partnership" onChange={handleChange} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -214,7 +300,7 @@ const CreateUser = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="text" disabled />
+                          <Form.Control type="text" disabled value={userCreationData?.data?.myPartnership} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -236,10 +322,10 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Select aria-label="Default select example">
+                            <Form.Select name="commissionType" aria-label="Default select example" onChange={handleCommisionChange}>
                               <option>Commission Type</option>
                               <option value="1">Bet By Bet</option>
-                              <option value="1">No Comm</option>
+                              <option value="2">No Comm</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
@@ -251,7 +337,7 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Control type="number" />
+                            <Form.Control type="number" value={Number(userList?.matchCommission)} name="matchCommission" onChange={handleChange} />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -262,7 +348,7 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Control type="number" />
+                            <Form.Control type="number" value={(Number(userList?.sessionCommission))} name="sessionCommission" onChange={handleChange} />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -282,7 +368,7 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Control type="text" disabled />
+                            <Form.Control type="text" disabled value={userCreationData?.data?.commissionType == '1' ? 'Bet by Bet' : 'No Comm'} />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -293,7 +379,7 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Control type="text" disabled />
+                            <Form.Control type="text" disabled value={userCreationData?.data?.myMatchCommission} />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -304,7 +390,7 @@ const CreateUser = () => {
                         </Col>
                         <Col md={6}>
                           <Form.Group className="mb-3">
-                            <Form.Control type="text" disabled />
+                            <Form.Control type="text" disabled value={userCreationData?.data?.mySessionCommision} />
                           </Form.Group>
                         </Col>
                       </Row>
@@ -312,21 +398,21 @@ const CreateUser = () => {
                   </Col>
                 </Row>
 
-                
+
               </Form>
               <Row className="form-actions">
                 <Col md={2}></Col>
-                  <Col md={10}>
-                    <div >
-                      <Button style={{background:"#70bb2e"}} type="button" className="btn btn-success">
-                        Save
-                      </Button>
-                      <Button style={{background:"#e8e8e8", color:"#000"}} type="button" className="btn">
-                        Cancel
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
+                <Col md={10}>
+                  <div >
+                    <Button style={{ background: "#70bb2e" }} type="button" className="btn btn-success" onClick={handleSubmit}>
+                      Save
+                    </Button>
+                    <Button style={{ background: "#e8e8e8", color: "#000" }} type="button" className="btn">
+                      Cancel
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
             </div>
           </div>
         </div>

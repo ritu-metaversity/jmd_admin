@@ -1,13 +1,29 @@
 import React, { FC, useState } from "react";
 import { AiFillDashboard } from "react-icons/ai";
-import {FaBook,FaCogs,FaRegFile } from "react-icons/fa";
+import { FaBook, FaCogs, FaRegFile } from "react-icons/fa";
 import { GrTasks } from "react-icons/gr";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useAuthSelector } from "../../app/features/auth/authSlice";
+import MasterDetails from "./MasterDetailsComp";
 
 interface Props {
   isActive: boolean;
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface SidebarObj {
+  [key: number]: string;
+}
+
+
+const sidebarObj: SidebarObj = {
+  2: 'Agent Details',
+  3: 'Master Details',
+  4: 'Super Master Details',
+  5: 'Sub Admin Details',
+  6: 'Admin Details',
+  7: 'Super Admin Details'
 }
 const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
 
@@ -17,52 +33,35 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
     setOpenMenu((prev) => (prev === menu ? null : menu));
   };
 
+  const { userInfoType } = useAuthSelector();
 
   return (
     <>
-      <div id="" className="sidebar_main" style={{marginLeft:`${isActive?"0px":"-190px"}`, transition:"margin 0.3s"}}>
-      <div _ngcontent-trl-c46="" onClick={()=>setIsActive(!isActive)} className="sidebar-toggler hidden-phone">
-        {isActive?<MdArrowBackIos />:<MdArrowForwardIos />}
-      </div>
+      <div id="" className="sidebar_main" style={{ marginLeft: `${isActive ? "0px" : "-190px"}`, transition: "margin 0.3s" }}>
+        <div _ngcontent-trl-c46="" onClick={() => setIsActive(!isActive)} className="sidebar-toggler hidden-phone">
+          {isActive ? <MdArrowBackIos /> : <MdArrowForwardIos />}
+        </div>
         <div id="sidebar">
-          <ul className="sidebar-menu" style={{display:`${isActive?"block":"none"}`}} >
+          <ul className="sidebar-menu" style={{ display: `${isActive ? "block" : "none"}` }} >
             <li>
               <Link to="/main">
                 <span className="icon-box">
-                  <AiFillDashboard  />
+                  <AiFillDashboard />
                 </span>
                 Dashboard
               </Link>
             </li>
 
-            <li  className="has-sub">
+            <li className="has-sub">
               <Link to="javascript:;" onClick={() => toggleMenu("masterDetails")}>
                 <span className="icon-box">
-                <FaBook />
+                  <FaBook />
                 </span>
-                Master Details <span className={`arrow ${openMenu === "masterDetails" ? "open" : ""}`} />
+                {sidebarObj[Number(userInfoType)]}
+                <span className={`arrow ${openMenu === "masterDetails" ? "open" : ""}`} />
               </Link>
               <ul className={`sub ${openMenu === "masterDetails" ? "open" : ""}`}>
-                <li className="ng-star-inserted">
-                  <Link to="/main/admindetails/4">Admin</Link>
-                </li>
-                <li className="ng-star-inserted">
-                  <Link to="/main/admindetails/5">Sub Admin</Link>
-                </li>
-                <li className="ng-star-inserted">
-                  <Link to="/main/admindetails/5">Super Master</Link>
-                </li>
-                <li className="ng-star-inserted">
-                  <Link to="/main/admindetails/5">Master</Link>
-                </li>
-
-                <li className="ng-star-inserted">
-                  <Link to="/main/admindetails/6">Agent</Link>
-                </li>
-
-                <li>
-                  <Link to="/main/admindetails/7">Client</Link>
-                </li>
+                <MasterDetails userType={userInfoType?.toString() || ''} />
               </ul>
             </li>
             <li className="has-sub">
@@ -127,7 +126,7 @@ const SidebarItem: FC<Props> = ({ isActive, setIsActive }) => {
                 <span className="icon-box">
                   <FaCogs />
                 </span>
-                Cash Transaction <span className={`arrow ${openMenu === "cashTransaction" ? "open" : ""}`}  />
+                Cash Transaction <span className={`arrow ${openMenu === "cashTransaction" ? "open" : ""}`} />
               </Link>
               <ul className={`sub ${openMenu === "cashTransaction" ? "open" : ""}`}>
                 <li className="ng-star-inserted">

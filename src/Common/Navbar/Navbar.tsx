@@ -1,7 +1,10 @@
 import { FC, useState } from "react";
 import "./Navbar.scss";
 import { FaBars } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout, useAuthSelector } from "../../app/features/auth/authSlice";
+import { CgKey } from "react-icons/cg";
+import { useDispatch } from "react-redux";
 
 interface Props {
   setIsActive: any;
@@ -10,6 +13,21 @@ interface Props {
 
 
 const Navbar = ({ setIsActive, isActive }: Props) => {
+
+  const { userId, isLoggedIn, token } = useAuthSelector();
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    setShow(!show);
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  }
+
+
   return (
     <header>
       <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -27,19 +45,18 @@ const Navbar = ({ setIsActive, isActive }: Props) => {
                 />
               </a>
               <div className="top-nav">
-                <marquee
-
-
-                  className="marquee-text">
-                  {" "}
+                <marquee className="marquee-text">
                   🕉🌀⚽ 🏏🎾 WELCOME TO JMDSPORTS11 @ 🏆CASINO COMING SOON🏆
                   🙏💉GET VACCINATED SAVE LIVES💉**
                 </marquee>
                 <ul className="nav pull-right top-menu">
-                  <li className="dropdown">
-                    <Link to=""
+
+
+                  <li className="dropdown" >
+                    <Link to="#"
+                      onClick={handleClick}
                       data-toggle="dropdown"
-                      className="dropdown-toggle">
+                      className="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img
                         src="https://admin.jmd11.com/assets/img/atomix_user31.png"
                         height={20}
@@ -53,19 +70,18 @@ const Navbar = ({ setIsActive, isActive }: Props) => {
                           fontFamily: "Verdana, Geneva, sans-serif",
                           fontSize: 12,
                         }}>
-                        MA1568 Raj
+                        {userId}
                       </span>
                       <b className="caret" />
                     </Link>
-                    <ul className="dropdown-menu">
-                      <li >
-                        <Link to="/login">
-                          <i className="icon-key" /> Log
-                          Out
-                        </Link>
-                      </li>
-
-                    </ul>
+                    {show &&
+                      <ul className="dropdownmenu" onClick={handleLogout}>
+                        <li className="li">
+                          <CgKey className="key-icon" />
+                          {/* <i className="icon-key" /> */}
+                          <span>Log Out</span>
+                        </li>
+                      </ul>}
                   </li>
                 </ul>
               </div>

@@ -4,7 +4,10 @@ import { Button, Col, Row, Form } from "react-bootstrap";
 import "../UserDetails/CreateUser/createuser.scss";
 import { Breadcrumb } from "../Dashboard/Dashboard";
 import BreadcrumbNav from "../../Component/Breadcrumb/BreadcrumbNav";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { useChangepasswordMutation } from "../../app/apis/mainApi/mainApislice";
+import snackbarUtil from "../../utils/snackbar";
 
 const breadData: Breadcrumb[] = [
   {
@@ -25,7 +28,53 @@ const breadData: Breadcrumb[] = [
 ];
 
 const ChangePassword = () => {
+  const [changePassword, setChangePassword] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
+  const navigate = useNavigate();
+
+  const [changePasswordTrigger, { data: changepassData }] = useChangepasswordMutation();
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setChangePassword((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLButtonElement>): Promise<void> => {
+    e.preventDefault();
+    if (changePassword.newPassword.length !== changePassword?.confirmPassword.length
+      &&
+      changePassword?.newPassword !== changePassword?.confirmPassword
+    ) {
+      return snackbarUtil.error('new password and confirm password did not match');
+    }
+    try {
+      await changePasswordTrigger(changePassword).unwrap();
+      console.log(changepassData, 'chapas');
+
+      if (changepassData?.status === true) {
+        localStorage.clear();
+        navigate('/login');
+      }
+    } catch (error) {
+      console.log(`change password failed ${error}`)
+    }
+
+  }
+
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login')
+    }
+  }, [localStorage.getItem('token')])
+
   const { id } = useParams();
+
   return (
     <>
       <BreadcrumbNav
@@ -51,7 +100,7 @@ const ChangePassword = () => {
                 id="Error"
                 className="alert alert-error hidden-phone"
                 style={{ visibility: "hidden" }}></div>
-              <Form className="user_form">
+              <Form className="user_form" >
                 <Row>
                   <Col xs={12} md={6}>
                     <Row>
@@ -62,7 +111,7 @@ const ChangePassword = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="password" />
+                          <Form.Control type="password" name="currentPassword" value={changePassword.currentPassword} onChange={handleChangePassword} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -76,7 +125,7 @@ const ChangePassword = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="password" />
+                          <Form.Control type="password" name="newPassword" value={changePassword.newPassword} onChange={handleChangePassword} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -91,7 +140,7 @@ const ChangePassword = () => {
                       </Col>
                       <Col md={6}>
                         <Form.Group className="mb-3">
-                          <Form.Control type="password" />
+                          <Form.Control type="password" name="confirmPassword" value={changePassword.confirmPassword} onChange={handleChangePassword} />
                         </Form.Group>
                       </Col>
                     </Row>
@@ -103,14 +152,15 @@ const ChangePassword = () => {
                 <Col md={11}>
                   <div>
                     <Button
+                      onClick={handleSubmit}
                       style={{ background: "#2b982b" }}
-                      type="button"
+                      type="submit"
                       className="btn btn-success">
                       Change Password
                     </Button>
                     <Button
                       style={{ background: "#e8e8e8", color: "#000" }}
-                      type="button"
+                      type="reset"
                       className="btn">
                       Cancel
                     </Button>

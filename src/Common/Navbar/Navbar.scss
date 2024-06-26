@@ -11,25 +11,29 @@
     padding: 0;
     z-index: 12;
     width: 100%;
+
     .navbar-inner {
       height: 60px;
       border: none !important;
       background: #4e4e4e url(top-bg.a815fae….jpg) repeat-x !important;
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4e4e4e",endColorstr="#4e4e4e",GradientType=0);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4e4e4e", endColorstr="#4e4e4e", GradientType=0);
       border-width: 0;
       width: 100%;
       margin: 0 0 -2px !important;
       padding: 0;
       border-radius: 0;
+
       .container-fluid {
         padding-right: 15px;
         padding-left: 15px;
         margin-right: auto;
         margin-left: auto;
+
         &::before {
           display: table;
           content: " ";
         }
+
         .brand {
           display: block;
           float: left;
@@ -39,20 +43,23 @@
           opacity: 1;
           padding: 5px 34.5px;
           width: 220px;
+
           img {
             max-width: 100%;
           }
-         
+
           @media screen and (max-width: 767px) {
             margin-top: -5px !important;
             padding: 10px 35px !important;
             width: 170px;
           }
+
           @media screen and (max-width: 430px) {
             margin-top: -5px !important;
             padding: 9px 19px !important;
           }
         }
+
         .top-nav {
           .marquee-text {
             position: absolute;
@@ -62,36 +69,80 @@
             left: 0;
             right: 0;
             color: #fff;
+
             @media screen and (max-width: 760px) {
               display: none;
             }
           }
+
           .top-menu {
             padding: 8px;
             float: right !important;
             margin-bottom: 0;
             list-style: none;
             margin-top: 6px;
+
             @media screen and (max-width: 760px) {
               margin-right: 19px;
             }
+
             .dropdown {
               margin-left: 0 !important;
               margin-right: 0 !important;
               position: relative;
               display: block;
+
+              .dropdownmenu {
+                top: 40px;
+                position: absolute;
+                padding-left: 1rem;
+                width: 100%;
+                display: flex;
+                background-color: #fff;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 2;
+                isolation: isolate;
+
+                .li {
+                  list-style-type: none;
+
+                  span {
+                    font-size: 14px;
+                  }
+
+                  .key-icon {
+                    font-size: 1.3rem;
+                    transform: rotate(30deg);
+                  }
+                }
+
+                &::after {
+                  content: '';
+                  z-index: -1;
+                  border-top: 12px solid #fff;
+                  border-left: 12px solid #fff;
+                  position: absolute;
+                  top: -3px;
+                  right: 3px;
+                  transform: rotate(-42deg);
+                }
+              }
             }
 
             .dropdown-toggle {
               border-radius: 4px;
               padding: 13px 10px;
+
               &:hover {
                 background-color: #333 !important;
                 padding: 13px 10px;
               }
+
               &::after {
                 display: none;
               }
+
               img {
                 border-radius: 20px;
                 max-width: none;
@@ -100,6 +151,7 @@
                 margin-right: 5px;
                 vertical-align: middle;
               }
+
               .caret {
                 margin-top: 0;
                 color: #fff;
@@ -132,20 +184,24 @@
   border: none;
   right: 0;
   display: none;
+
   @media screen and (max-width: 760px) {
     display: block;
     top: 13px;
   }
+
   .hamb-top {
     top: 5px;
     transition: all 0.35s ease-in-out;
     background-color: #52bcd4;
   }
+
   .hamb-middle {
     top: 50%;
     margin-top: -2px;
     background-color: #52bcd4;
   }
+
   .hamb-bottom {
     bottom: 5px;
     transition: all 0.35s ease-in-out;
@@ -173,9 +229,11 @@
     margin-top: -2px;
     background-color: #00bcd4;
   }
+
   .hamb-middle {
     display: none;
   }
+
   .hamb-bottom {
     transform: rotate(-45deg);
     transition: transform 0.2s cubic-bezier(0.73, 1, 0.28, 0.08);

@@ -23,10 +23,10 @@ const BreadcrumbNav = ({ heading, subHeading, breadData }: Props) => {
             </a>
             <span className="divider"></span>
           </li>
-          {breadData?.map((item) => {
+          {breadData?.map((item, index) => {
             return (
-              <li>
-                <Link className={item?.name === "Back"?"text_color":""} to={item?.link}>{item?.name}</Link>
+              <li key={item.name + index}>
+                <Link className={item?.name === "Back" ? "text_color" : ""} to={item?.link}>{item?.name}</Link>
                 <span className={item?.class}>&nbsp;</span>
               </li>
             );

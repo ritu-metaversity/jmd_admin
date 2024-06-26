@@ -4,10 +4,11 @@
   max-width: 360px;
   margin: 5% auto;
   overflow-x: hidden;
+
   @media screen and (max-width: 760px) {
     height: 100vh;
     overflow: hidden;
-    margin-top:25%;
+    margin-top: 25%;
     max-width: 100%;
   }
 
@@ -28,7 +29,7 @@
     }
   }
 
-  
+
 
   .card {
     background: #fff;
@@ -42,7 +43,7 @@
       font-size: 14px;
       color: #555;
       padding: 20px;
-      height: 209px;
+      // height: 209px;
 
       .msg {
         color: #555;
